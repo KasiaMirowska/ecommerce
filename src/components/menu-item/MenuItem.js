@@ -1,13 +1,13 @@
 import React from 'react';
 import './MenuItem.styles.scss';
 import sections from '../../dummyData';
+import {withRouter} from 'react-router-dom';
 
-
-export default function MenuItem({ title, img, size }) {
-   
+export default withRouter(function MenuItem({ title, img, size, linkUrl, history, match}) {
+ console.log(history)
     return (
         //if the menu item has size it will get the size class or be ignored
-        <div className={`${size} menu-item`}>
+        <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)}>
             <div className='background-image' style={{backgroundImage: `url(${img})`}} />
             <div className='content'>
                 <h1 className='title'>{title.toUpperCase()}</h1>
@@ -15,5 +15,5 @@ export default function MenuItem({ title, img, size }) {
             </div>
         </div>
 
-    )
-}
+    );
+})
