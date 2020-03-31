@@ -1,6 +1,5 @@
 import React from 'react';
 import './MenuItem.styles.scss';
-import sections from '../../dummyData';
 import {withRouter} from 'react-router-dom';
 
 export default withRouter(function MenuItem({ title, img, size, linkUrl, history, match}) {

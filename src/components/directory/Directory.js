@@ -1,13 +1,13 @@
 import React from 'react';
 import './Directory.styles.scss';
 import MenuItem from '../menu-item/MenuItem';
-import sections from '../../dummyData';
+import DATA from '../../dummyData';
 
 export default class Directory extends React.Component {
     constructor() {
         super()
         this.state = {
-            sections: sections,
+            sections: DATA.sections,
         }
     }
     render() {
