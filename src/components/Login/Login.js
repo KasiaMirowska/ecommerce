@@ -30,7 +30,6 @@ export default class Login extends React.Component {
 
 
     render() {
-        console.log(this.state)
         return (
             <div className='sign-in'>
                 <h2 className='title'>I already have an account</h2>

@@ -3,7 +3,7 @@ import './MenuItem.styles.scss';
 import {withRouter} from 'react-router-dom';
 
 export default withRouter(function MenuItem({ title, img, size, linkUrl, history, match}) {
- console.log(history)
+
     return (
         //if the menu item has size it will get the size class or be ignored
         <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)}>

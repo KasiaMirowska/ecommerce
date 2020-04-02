@@ -3,7 +3,6 @@ import './CollectionPreview.styles.scss';
 import CollectionItem from '../collectionItem/CollectionItem';
 
 export default function CollectionPreview({ title, items }) {
-    console.log(items)
     const displayed = items
         //displaying only first 4 items in the collection preview
         .filter((item, idx) => idx < 4)

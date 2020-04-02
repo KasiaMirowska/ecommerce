@@ -13,6 +13,35 @@ const config = {
     appId: "1:506711171270:web:b0f9c788f57944529637c7",
     measurementId: "G-6SS2MF5K16"
   };
+  //saving a user into db passing userAuth object that we receive when googleSignIn...we ALWAYS recieve an object back but it might be empty
+  export const createUserProfileDocument = async ( userAuth, ...additionalData) => {
+    if(!userAuth) {
+       console.log('does not exist')
+       return;
+    }
+    //if does exist then query the db
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+    const snapshot = await userRef.get()
+    //or create a new user
+    if(!snapshot.exists) {
+        const {displayName, email} = userAuth;
+        const createdAt = new Date();
+
+        try {
+            await userRef.set({ //another firestore method for creating a user
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            })
+
+        }catch (err) {
+            console.log('error creating a user', err.message)
+        }
+    }
+    return userRef;
+  }
+
 
   firebase.initializeApp(config);
   //configuration neccesary for google auth
