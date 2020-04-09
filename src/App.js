@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import HomePage from './pages/homepage/HomePage';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setCurrentUser} from './redux/user/user.actions';
 import ShopPage from './pages/shop/ShopPage';
@@ -42,20 +42,26 @@ class App extends React.Component {
        
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' component={LoginRegister} />
+        <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
         </Switch>
        </div>
     );
   }
   
 }
+//bringing user reducer from redux
+const mapStateToPops = ({user}) => ({
+  setCurrentUser: user.setCurrentUser,
+})
 
 const mapDispatchToPops = dispatch => ({
-  //dispatch is e mthod that takes whatever argument passed and makes it available to every reducer, here a user object being set though userAuth
+  //dispatch is a mwthod that takes whatever argument passed and makes it available to every reducer, here a user object being set though userAuth
   setCurrentUser: user=>dispatch(setCurrentUser(user))
 })
 
 
 //we put null becasue app.js does not need/take anything from root-reducer;
-export default connect(null, mapDispatchToPops)(App)
+export default connect(
+  mapStateToPops, 
+  mapDispatchToPops)(App)
 
