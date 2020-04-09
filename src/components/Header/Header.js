@@ -1,11 +1,18 @@
 import React from 'react';
 import './Header.styles.scss';
+import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { auth } from '../../firebase/firebase.util';
+//higher order components are functions that take components as arguments
+
+//state here is rootReducer
+const mapStateToProps = (state) => ({
+    currentUser: state.user.currentUser,
+});
 
 
-export default function Header({currentUser}) {
+const Header = ({currentUser}) => {
     return (
         <header className='header'>
             <Link to='/' className='logo-container'>
@@ -28,4 +35,6 @@ export default function Header({currentUser}) {
             </div>
         </header>
     )
-}
+};
+
+export default connect(mapStateToProps)(Header);

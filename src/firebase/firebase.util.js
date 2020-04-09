@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore'; //for database
 import 'firebase/auth'; //for authentication
+import { connect } from 'react-redux';
 
 
 const config = {
@@ -11,10 +12,10 @@ const config = {
     storageBucket: "crown-db-3ccd2.appspot.com",
     messagingSenderId: "506711171270",
     appId: "1:506711171270:web:b0f9c788f57944529637c7",
-    measurementId: "G-6SS2MF5K16"
+    // measurementId: "G-6SS2MF5K16"
   };
   //saving a user into db passing userAuth object that we receive when googleSignIn...we ALWAYS recieve an object back but it might be empty
-  export const createUserProfileDocument = async ( userAuth, ...additionalData) => {
+  export const createUserProfileDocument = async ( userAuth, additionalData) => {
     if(!userAuth) {
        console.log('does not exist')
        return;
@@ -26,14 +27,16 @@ const config = {
     if(!snapshot.exists) {
         const {displayName, email} = userAuth;
         const createdAt = new Date();
-
+        console.log(displayName, Object.keys(userAuth), 'KEYS', userAuth, 'INSIDE UTILLLLLLLLLLLLLLLL')
         try {
-            await userRef.set({ //another firestore method for creating a user
+            const userRefSet = { //another firestore method for creating a user
                 displayName,
                 email,
                 createdAt,
                 ...additionalData
-            })
+            };
+            console.log(userRefSet, 'USER SET')
+            await userRef.set(userRefSet)
 
         }catch (err) {
             console.log('error creating a user', err.message)

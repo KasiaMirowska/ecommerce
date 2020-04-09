@@ -2,19 +2,14 @@ import React from 'react';
 import './App.css';
 import HomePage from './pages/homepage/HomePage';
 import {Route, Switch} from 'react-router-dom';
-import HatsPage from './pages/hatspage/HatsPage';
+import {connect} from 'react-redux';
+import {setCurrentUser} from './redux/user/user.actions';
 import ShopPage from './pages/shop/ShopPage';
 import Header from './components/Header/Header';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
 import {auth, createUserProfileDocument} from './firebase/firebase.util';
 
-export default class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      currentUser: null,
-    }
-  }
+class App extends React.Component {
   
   unsubscribeFromAuth = null;
 
@@ -23,20 +18,15 @@ export default class App extends React.Component {
       if(userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
         userRef.onSnapshot(snapshot => { //calling for a snapshot of user object being created or that already is inside the db. This method allows us to check and get properties of user object with .data()method
-          this.setState({
-            currentUser: {
+          this.props.setCurrentUser({
               id: snapshot.id,
-              name: snapshot.data().displayName,
-              email: snapshot.data().email,
+              name: snapshot.displayName,
+              email: snapshot.email,
               ...snapshot.data()
-            }
           })
         }) 
-      } else {
-        this.setState({ currentUser: userAuth}) //when user is signed out it return null so we need to update the state
-      }
-     
-      
+      } 
+        this.props.setCurrentUser(userAuth) //when user is signed out it return null so we need to update the state/redux to rerender
     })
   }
 
@@ -45,10 +35,9 @@ export default class App extends React.Component {
   }
   
   render() {
-    console.log(this.state, "STATE", 'STATE?????????????')
     return (
       <div>
-        <Header currentUser={this.state.currentUser}/>
+        <Header />
         <Switch>
        
         <Route exact path='/' component={HomePage} />
@@ -61,4 +50,12 @@ export default class App extends React.Component {
   
 }
 
+const mapDispatchToPops = dispatch => ({
+  //dispatch is e mthod that takes whatever argument passed and makes it available to every reducer, here a user object being set though userAuth
+  setCurrentUser: user=>dispatch(setCurrentUser(user))
+})
+
+
+//we put null becasue app.js does not need/take anything from root-reducer;
+export default connect(null, mapDispatchToPops)(App)
 
