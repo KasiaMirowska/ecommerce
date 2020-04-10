@@ -19,7 +19,6 @@ export default class Register extends React.Component {
         e.preventDefault();
         //just like in app.js where we were checking googleAuth now we need to create the full entry
         const {displayName, email, password, confirmPassword} = this.state;
-        console.log(this.state)
         if(password !== confirmPassword) {
             alert('Password entries do not match!')
             return;
@@ -28,9 +27,7 @@ export default class Register extends React.Component {
         try{
             
             const {user} = await auth.createUserWithEmailAndPassword(email, password)
-            console.log( user, '???????')
             //after creating a new user we want to save the authCredentials in here to stay singed in so we call the following 
-            console.log(displayName, 'DISPLAY NAME')
             await createUserProfileDocument(user, {displayName})
             //once process is finished we reset the form
             this.setState({

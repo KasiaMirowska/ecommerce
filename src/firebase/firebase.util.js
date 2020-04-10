@@ -27,7 +27,7 @@ const config = {
     if(!snapshot.exists) {
         const {displayName, email} = userAuth;
         const createdAt = new Date();
-        console.log(displayName, Object.keys(userAuth), 'KEYS', userAuth, 'INSIDE UTILLLLLLLLLLLLLLLL')
+       
         try {
             const userRefSet = { //another firestore method for creating a user
                 displayName,
@@ -35,7 +35,7 @@ const config = {
                 createdAt,
                 ...additionalData
             };
-            console.log(userRefSet, 'USER SET')
+            
             await userRef.set(userRefSet)
 
         }catch (err) {

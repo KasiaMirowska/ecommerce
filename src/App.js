@@ -8,6 +8,7 @@ import ShopPage from './pages/shop/ShopPage';
 import Header from './components/Header/Header';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
 import {auth, createUserProfileDocument} from './firebase/firebase.util';
+import CartIcon from './components/CartIcon/CartIcon';
 
 class App extends React.Component {
   
@@ -35,6 +36,7 @@ class App extends React.Component {
   }
   
   render() {
+    console.log(this.props, 'PROPS')
     return (
       <div>
         <Header />
@@ -43,6 +45,7 @@ class App extends React.Component {
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
         <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
+       
         </Switch>
        </div>
     );
@@ -50,12 +53,15 @@ class App extends React.Component {
   
 }
 //bringing user reducer from redux
-const mapStateToPops = ({user}) => ({
-  setCurrentUser: user.setCurrentUser,
-})
+const mapStateToPops = ({user}) => {
+  console.log(user, '?????????UUUUUUUU')
+  return ({
+  currentUser: user.setCurrentUser,
+  })
+}
 
 const mapDispatchToPops = dispatch => ({
-  //dispatch is a mwthod that takes whatever argument passed and makes it available to every reducer, here a user object being set though userAuth
+  //dispatch is a method that takes whatever argument passed and makes it available to every reducer, here a user object being set though userAuth
   setCurrentUser: user=>dispatch(setCurrentUser(user))
 })
 
