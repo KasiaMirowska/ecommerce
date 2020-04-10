@@ -9,6 +9,7 @@ export default function CollectionPreview({ title, items }) {
         .map(item => (
             <CollectionItem
                 key={item.id}
+                item={item}
                 name={item.name}
                 price={item.price}
                 imageUrl={item.imageUrl}

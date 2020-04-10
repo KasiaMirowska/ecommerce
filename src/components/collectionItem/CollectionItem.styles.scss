@@ -20,7 +20,7 @@
       position: absolute;
       top: 255px;
       //2 above features determine that the button is position always 255px from top=== at the bottom of the image, so also added position: relative to collection-item container
-      display: none; //so that button apears only on hover
+      display: none; //so that button apears only on hover; look below added hover feature
     }
     
     &:hover {

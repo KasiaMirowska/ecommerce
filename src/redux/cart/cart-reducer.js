@@ -1,8 +1,11 @@
 import CartActionTypes from './cart.types';
+import { connect } from 'react-redux';
 
+import {addMultiSameToCart} from './cart.utils';
 
 const INITIAL_STATE = {
     hidden: true,
+    cartItems: [],
 };
 
 const cartReducer = (state=INITIAL_STATE, action) => {
@@ -11,6 +14,12 @@ const cartReducer = (state=INITIAL_STATE, action) => {
             return {
                 ...state,
                 hidden: !state.hidden
+            }
+        case CartActionTypes.ADD_ITEM:
+            console.log(state)
+            return {
+                ...state,
+                cartItems: addMultiSameToCart(state.cartItems, action.payload)
             }
         default:
             return state;
