@@ -20,7 +20,7 @@ const Cart = (props) => {
     const items = props.cartItems.map(item => (
         <CartItem key={item.id} {...item} />
     ));
-    console.log(items)
+    
     return (
         <div className='cart-dropdown'>
             <div className='cart-items'>
