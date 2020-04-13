@@ -7,7 +7,9 @@ import { setCurrentUser } from './redux/user/user.actions';
 import ShopPage from './pages/shop/ShopPage';
 import Header from './components/Header/Header';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
+import CheckOut from './pages/checkOut/CheckOut';
 import { auth, createUserProfileDocument } from './firebase/firebase.util';
+import {selectCurrentUser} from './redux/user/user.selectors';
 
 
 class App extends React.Component {
@@ -45,7 +47,7 @@ class App extends React.Component {
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
           <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
-
+          <Route exact path='/checkout' component={CheckOut} />
         </Switch>
       </div>
     );
@@ -53,13 +55,16 @@ class App extends React.Component {
 
 }
 //bringing user reducer from redux
-const mapStateToPops = ({ user }) => {
-  return ({
-    currentUser: user.setCurrentUser,
-  })
-}
+// const mapStateToProps = ({ user }) => {
+//   return ({
+//     currentUser: user.setCurrentUser,
+//   })
+// }
+const mapStateToProps = (state) => ({
+    currentUser: selectCurrentUser(state),
+});
 
-const mapDispatchToPops = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   //dispatch is a method that takes whatever argument passed and makes it available to every reducer, here a user object being set though userAuth
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
@@ -67,6 +72,6 @@ const mapDispatchToPops = dispatch => ({
 
 //we put null becasue app.js does not need/take anything from root-reducer;
 export default connect(
-  mapStateToPops,
-  mapDispatchToPops)(App)
+  mapStateToProps,
+  mapDispatchToProps)(App)
 

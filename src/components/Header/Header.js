@@ -2,17 +2,27 @@ import React from 'react';
 import './Header.styles.scss';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {createStructuredSelector} from 'reselect';
+
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { auth } from '../../firebase/firebase.util';
 import CartIcon from '../CartIcon/CartIcon';
 import Cart from '../CartDropdown/Cart';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import {selectCurrentUser} from '../../redux/user/user.selectors';
+import {selectCartHidden} from '../../redux/cart/cart.selectors';
+
 //higher order components are functions that take components as arguments
 
-//state here is rootReducer
-const mapStateToProps = (state) => ({
-    currentUser: state.user.currentUser,
-    cart: state.cart.hidden,
+//state comes from rootReducer
+// const mapStateToProps = (state) => ({
+//     currentUser: selectCurrentUser(state),
+//     cart: selectCartHidden(state),
+// });
+//or we can write it a bit simpler:
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    cart: selectCartHidden,
 });
 
 
