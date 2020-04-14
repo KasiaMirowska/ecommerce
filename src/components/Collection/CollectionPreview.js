@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './CollectionPreview.styles.scss';
 import CollectionItem from '../collectionItem/CollectionItem';
 
@@ -18,7 +19,9 @@ export default function CollectionPreview({ title, items }) {
 
     return (
         <div className='collection '>
+            <Link to={`/shop/${title.toLowerCase()}`}>
             <h1 className='title' >{title}</h1>
+            </Link>
             <div className='preview'>
                 {displayed}
             </div>
