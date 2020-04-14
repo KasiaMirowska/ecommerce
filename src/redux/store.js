@@ -4,7 +4,11 @@ import {persistStore} from 'redux-persist'; //allows browser to cache our store
 import rootReducer from './root-reducer';
 //middlaware is an array hence to keep it scalable we write the following:
 
-const middlewares = [logger];
+const middlewares = [];
+
+if(process.env.NODE_ENV ==='development') {
+    middlewares.push(logger)
+}
 export const store = createStore(rootReducer, applyMiddleware(...middlewares))
 export const persistor = persistStore(store);  
 export default {store, persistor};
