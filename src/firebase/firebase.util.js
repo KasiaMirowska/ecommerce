@@ -70,7 +70,6 @@ const config = {
       
       return transformedCollections.reduce((accumulator, collection) => {
           accumulator[collection.title.toLowerCase()] = collection;
-          console.log(accumulator, '???????????????????')
           return accumulator;
       }, {})
   }

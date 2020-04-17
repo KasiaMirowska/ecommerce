@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const CollectionPage = (props) => {
+    console.log(props, 'COLLCECTON PROPS')
     const content = props.collection.items.map(item => {
         return (
             <CollectionItem key={item.id} item={item} />
