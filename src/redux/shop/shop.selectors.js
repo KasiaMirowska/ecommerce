@@ -12,12 +12,12 @@ export const selectShopCollections = createSelector(
 //after data normalization we have objects instead of arrays so rendering components is broken hence we should convert that object into an array here:
 export const selectCollectionsForPreview = createSelector(
    [selectShopCollections],
-    collections => Object.keys(collections).map(key => collections[key])
+    collections => collections? Object.keys(collections).map(key => collections[key]) : [],
 )
 //currying
 export const selectCollection = collectionUrlParam => {
     return createSelector(
         [selectShopCollections],
-        collections => collections[collectionUrlParam] //after data normalization we have an object with titled smaller objects holding the collection items
+        collections => collections? collections[collectionUrlParam] : null//after data normalization we have an object with titled smaller objects holding the collection items
     )
 }

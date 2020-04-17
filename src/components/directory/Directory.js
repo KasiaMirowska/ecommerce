@@ -3,7 +3,7 @@ import './Directory.styles.scss';
 import MenuItem from '../menu-item/MenuItem';
 import {selectDirectorySections} from '../../redux/directory/directory.selectors'
 import { connect } from 'react-redux';
-import DATA from '../../dummyData';
+
 
 const Directory = (props) => {
     const sections = props.sections.map(section => (

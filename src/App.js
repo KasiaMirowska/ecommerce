@@ -8,15 +8,16 @@ import ShopPage from './pages/shop/ShopPage';
 import Header from './components/Header/Header';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
 import CheckOut from './pages/checkOut/CheckOut';
-import { auth, createUserProfileDocument } from './firebase/firebase.util';
+import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.util';
 import {selectCurrentUser} from './redux/user/user.selectors';
-
+import {selectCollectionsForPreview, selectShopCollections} from './redux/shop/shop.selectors';
 
 class App extends React.Component {
 
   unsubscribeFromAuth = null;
 
   componentDidMount = () => {
+    
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
@@ -30,6 +31,7 @@ class App extends React.Component {
         })
       }
       this.props.setCurrentUser(userAuth) //when user is signed out it return null so we need to update the state/redux to rerender
+      // addCollectionAndDocuments('collections', this.props.collectionsArray.map(({title, items}) => ({title, items})))//'collections' is a key that collectionsArray will be saved under in db, we're destructuring to save only info that we need, after populating the db this code is not needed hence commented out 
     })
   }
 
@@ -62,11 +64,12 @@ class App extends React.Component {
 // }
 const mapStateToProps = (state) => ({
     currentUser: selectCurrentUser(state),
+    // collectionsArray: selectCollectionsForPreview(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   //dispatch is a method that takes whatever argument passed and makes it available to every reducer, here a user object being set though userAuth
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
 })
 
 

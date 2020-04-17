@@ -1,7 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore'; //for database
 import 'firebase/auth'; //for authentication
-import { connect } from 'react-redux';
 
 
 const config = {
@@ -23,6 +22,7 @@ const config = {
     //if does exist then query the db
     const userRef = firestore.doc(`users/${userAuth.uid}`);
     const snapshot = await userRef.get()
+    
     //or create a new user
     if(!snapshot.exists) {
         const {displayName, email} = userAuth;
@@ -45,6 +45,35 @@ const config = {
     return userRef;
   }
 
+  export const addCollectionAndDocuments = async(collectionName, objectsToAdd) => {
+    const collectionRef= firestore.collection(collectionName) //we're calling for the collection object which firebase returns even if it's empty.
+    console.log(collectionRef, 'COLLECTIONREFFFFFFFFFFFF', objectsToAdd, "OBJECT?????") //now we will start to populate the collection with objects/items one at the time as doc with multiple calls gathered in one batch
+    const batch = firestore.batch();
+    objectsToAdd.forEach(obj => {
+        const newDocRef = collectionRef.doc()//method to make firestore assign an id to each genereated object in the db collection, for each item
+        batch.set(newDocRef, obj) //now we're assiginig the value of our object item to each doc created in db in order to save it. batch method will group these calls into a queues for us authomaticly
+    })
+     //now we need to commit the calls to db
+    return await batch.commit()
+  }
+
+  export const convertCollectionSnapshotToMap = (collections) => {
+      const transformedCollections = collections.docs.map(doc => {
+          const { title, items } = doc.data() //this method gets the actual value of the documentRef 
+          return {
+              routeName: encodeURI(title.toLowerCase()),
+              id: doc.id,
+              title,
+              items
+          }
+      })
+      
+      return transformedCollections.reduce((accumulator, collection) => {
+          accumulator[collection.title.toLowerCase()] = collection;
+          console.log(accumulator, '???????????????????')
+          return accumulator;
+      }, {})
+  }
 
   firebase.initializeApp(config);
   //configuration neccesary for google auth
