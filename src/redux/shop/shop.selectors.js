@@ -21,3 +21,8 @@ export const selectCollection = collectionUrlParam => {
         collections => collections? collections[collectionUrlParam] : null//after data normalization we have an object with titled smaller objects holding the collection items
     )
 }
+
+export const selectIsCollectionFetching = createSelector(
+    [selectShop],
+    shop => shop.isFetching
+)
