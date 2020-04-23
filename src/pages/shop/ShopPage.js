@@ -1,42 +1,44 @@
 import React from 'react';
-import CollectionsOverview from '../../components/CollectionsOverview/CollectionsOverview';
-import {fetchCollectionsStartAsync, fetchCollectionsStart} from '../../redux/shop/shop.actions';
-import CollectionPage from '../CollectionPage/CollectionPage';
-import {Route} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {createStructuredSelector} from 'reselect';
-import {selectIsCollectionFetching, selectIsCollectionsLoaded} from '../../redux/shop/shop.selectors';
-import WithSpinner from '../../components/with-spinner/WithSpinner';
+import CollectionsOverviewContainer from '../../components/CollectionsOverview/CollectionsOverview-Container';
+import { fetchCollectionsStartAsync, fetchCollectionsStart } from '../../redux/shop/shop.actions';
+import CollectionContainer from '../CollectionPage/Collection-Container';
+import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+//import { createStructuredSelector } from 'reselect';
+//import { selectIsCollectionFetching, selectIsCollectionsLoaded } from '../../redux/shop/shop.selectors';
+ 
+//CONTAINER PATTERN OPTIMIZATION to keep concerns seperate to each component
 
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+//const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview); moved this logic to CollectionOverviewContainer
+//const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
-const mapStateToProps = createStructuredSelector({
-    isCollectionFetching : selectIsCollectionFetching,
-    isCollectionsLoaded: selectIsCollectionsLoaded,
-})
+// const mapStateToProps = createStructuredSelector({
+//     //isCollectionFetching: selectIsCollectionFetching,
+//     // isCollectionsLoaded: selectIsCollectionsLoaded,
+// })
 
 const mapDispatchToProps = dispatch => ({
-    fetchCollectionsStartAsync : () => dispatch(fetchCollectionsStartAsync())
-}) 
+    fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+})
 
 class ShopPage extends React.Component {
     unsubscribeFromSnapshot = null;
-    
+
     componentDidMount = () => {
-       this.props.fetchCollectionsStartAsync()
+        this.props.fetchCollectionsStartAsync()
     }
-    
-    
+
     render() {
-         return (
+        return (
             <div className='shop-page'>
-                <Route exact path={`${this.props.match.path}`} render={(props) => (<CollectionsOverviewWithSpinner isLoading={!this.props.isCollectionsLoaded} {...props}/> )}/>
-                <Route path={`${this.props.match.path}/:collectionId`} render={(props) => ( <CollectionPageWithSpinner  isLoading={!this.props.isCollectionsLoaded} {...props} /> )} />
+                {/* <Route exact path={`${this.props.match.path}`} render={(props) => (<CollectionsOverviewWithSpinner isLoading={!this.props.isCollectionFetching} {...props} />)} /> */}
+                <Route exact path={`${this.props.match.path}`} component={CollectionsOverviewContainer} />
+                {/* <Route path={`${this.props.match.path}/:collectionId`} render={(props) => (<CollectionPageWithSpinner isLoading={!this.props.isCollectionsLoaded} {...props} />)} /> */}
+                <Route path={`${this.props.match.path}/:collectionId`} component={CollectionContainer} />
             </div>
         )
     }
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
+export default connect(null, mapDispatchToProps)(ShopPage);

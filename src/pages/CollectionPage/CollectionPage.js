@@ -7,12 +7,10 @@ import { selectCollection } from '../../redux/shop/shop.selectors';
 
 const mapStateToProps = (state, ownProps) => ({
     collection: selectCollection(ownProps.match.params.collectionId)(state),
-    // collection: selectCollection(`${ownProps.match.pathname / ownProps.collection}`)(state)//to provide link to collectionOverview
-
 })
 
 const CollectionPage = (props) => {
-    console.log(props, 'COLLCECTON PROPS')
+    //console.log(props, 'COLLCECTON PROPS')
     const content = props.collection.items.map(item => {
         return (
             <CollectionItem key={item.id} item={item} />
