@@ -10,17 +10,16 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const CollectionPage = (props) => {
-    //console.log(props, 'COLLCECTON PROPS')
     const content = props.collection.items.map(item => {
         return (
             <CollectionItem key={item.id} item={item} />
         )
     })
-    return (
+    return ( 
         <div className='collection-page'>
             <div className='title'>
                 <h2>{`${props.collection.title}`}</h2>
-            </div>
+            </div> 
             <div className='items'>
                 {content}
             </div>
