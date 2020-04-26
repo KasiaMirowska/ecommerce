@@ -18,21 +18,21 @@ class App extends React.Component {
 
   componentDidMount = () => {
     
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
-        userRef.onSnapshot(snapshot => { //calling for a snapshot of user object being created or that already is inside the db. This method allows us to check and get properties of user object with .data()method
-          this.props.setCurrentUser({
-            id: snapshot.id,
-            name: snapshot.displayName,
-            email: snapshot.email,
-            ...snapshot.data()
-          })
-        })
-      }
-      this.props.setCurrentUser(userAuth) //when user is signed out it return null so we need to update the state/redux to rerender
-      // addCollectionAndDocuments('collections', this.props.collectionsArray.map(({title, items}) => ({title, items})))//'collections' is a key that collectionsArray will be saved under in db, we're destructuring to save only info that we need, after populating the db this code is not needed hence commented out 
-    })
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth)
+    //     userRef.onSnapshot(snapshot => { //calling for a snapshot of user object being created or that already is inside the db. This method allows us to check and get properties of user object with .data()method
+    //       this.props.setCurrentUser({
+    //         id: snapshot.id,
+    //         name: snapshot.displayName,
+    //         email: snapshot.email,
+    //         ...snapshot.data()
+    //       })
+    //     })
+    //   }
+    //   this.props.setCurrentUser(userAuth) //when user is signed out it return null so we need to update the state/redux to rerender
+    //   // addCollectionAndDocuments('collections', this.props.collectionsArray.map(({title, items}) => ({title, items})))//'collections' is a key that collectionsArray will be saved under in db, we're destructuring to save only info that we need, after populating the db this code is not needed hence commented out 
+    // })
   }
 
   componentWillUnmount = () => {

@@ -80,10 +80,9 @@ const config = {
   export const auth = firebase.auth();
   export const firestore = firebase.firestore();
 
-  const provider = new firebase.auth.GoogleAuthProvider(); //from firebase library for google auth
-  provider.setCustomParameters({ prompt: 'select_account' }); //makes a pop up with google acc to choose from, provider is a class
-  export const signInWithGoogle = () => auth.signInWithPopup(provider);
-
+  export const googleProvider = new firebase.auth.GoogleAuthProvider(); //from firebase library for google auth
+  googleProvider.setCustomParameters({ prompt: 'select_account' }); //makes a pop up with google acc to choose from, provider is a class
+  
   export default firebase;
 
 
