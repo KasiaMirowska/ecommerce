@@ -3,13 +3,14 @@ import './Login.styles.scss';
 import FormInput from '../../components/FormInput/FormInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import {auth } from '../../firebase/firebase.util';
-import {googleSignInStart} from '../../redux/user/user.actions';
+import {googleSignInStart, emailSignInStart} from '../../redux/user/user.actions';
 import {connect} from 'react-redux';
 
 
 const mapDispatchToProps = dispatch => {
     return ({
         googleSignInStart: () => dispatch(googleSignInStart()),
+        emailSignInStart: (email, password) => dispatch(emailSignInStart({email, password}))
     })
 }
 
@@ -26,14 +27,8 @@ class Login extends React.Component {
     handleSubmit = async(e) => {
         e.preventDefault();
         const {email, password} =this.state;
-        try{
-            await auth.signInWithEmailAndPassword(email, password);
-            this.setState({ email: '', password: '', })
-
-        }catch(err) {
-            console.log(err)
-        }
-        
+        const {emailSignInStart} =this.props;
+        emailSignInStart(email, password);
     }
 
     handleChange = (e) => {
