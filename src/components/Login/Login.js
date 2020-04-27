@@ -29,6 +29,9 @@ class Login extends React.Component {
         const {email, password} =this.state;
         const {emailSignInStart} =this.props;
         emailSignInStart(email, password);
+        console.log(this.props)
+        this.props.onLoginSuccess()
+       
     }
 
     handleChange = (e) => {
