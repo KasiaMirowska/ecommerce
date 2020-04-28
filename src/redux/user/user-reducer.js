@@ -10,16 +10,22 @@ const userReducer = (state = INITIAL_STATE, action) => {
     //state is current state of the app
     switch (action.type) {
         case UserActionTypes.SIGNIN_SUCCESS:
-        
             return {
                 ...state,
                 currentUser: action.payload,
                 error: null
             }
         case UserActionTypes.SIGNIN_FAILURE:
+        case UserActionTypes.SIGN_OUT_FAILURE:
             return {
                 ...state,
                 error: action.payload
+            }
+        case UserActionTypes.SIGN_OUT_SUCCESS:
+            return {
+                ...state,
+                currentUser: null,
+                error: null,
             }
 
         default:
