@@ -30,7 +30,7 @@ class Login extends React.Component {
         const {emailSignInStart} =this.props;
         emailSignInStart(email, password);
         console.log(this.props)
-        this.props.onLoginSuccess()
+        //this.props.onLoginSuccess()
        
     }
 

@@ -8,7 +8,7 @@ const LoginRegister = (props) => {
    
     const handleLogin = () => {
         const {location, history} = props;
-        const destination = (location || {}).state || '/';
+        const destination = (location.state || {}).state || '/';
         history.push(destination);
     }
 

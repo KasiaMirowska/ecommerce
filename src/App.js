@@ -8,14 +8,14 @@ import Header from './components/Header/Header';
 import LoginRegister from './pages/LoginRegister/LoginRegister';
 import CheckOut from './pages/checkOut/CheckOut';
 import {selectCurrentUser} from './redux/user/user.selectors';
-
+import {checkUserSession} from './redux/user/user.actions';
 
 class App extends React.Component {
 
   unsubscribeFromAuth = null;
 
   componentDidMount = () => {
-    
+    this.props.checkUserSession();
   }
 
   componentWillUnmount = () => {
@@ -49,5 +49,9 @@ const mapStateToProps = (state) => ({
     currentUser: selectCurrentUser(state),
 });
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 

@@ -9,15 +9,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
     //action obj has type indicating which redducer should get affected and payload which is the property that gets changed
     //state is current state of the app
     switch (action.type) {
-        case UserActionTypes.GOOGLE_SIGNIN_SUCCESS:
-        case UserActionTypes.EMAIL_SIGNIN_SUCCESS:
+        case UserActionTypes.SIGNIN_SUCCESS:
+        
             return {
                 ...state,
                 currentUser: action.payload,
                 error: null
             }
-        case UserActionTypes.GOOGLE_SIGNIN_FAILURE:
-        case UserActionTypes.EMAIL_SIGNIN_FAILURE:
+        case UserActionTypes.SIGNIN_FAILURE:
             return {
                 ...state,
                 error: action.payload

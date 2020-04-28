@@ -1,6 +1,6 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import UserActionTypes from '../user/user.types';
-import { auth, googleProvider, createUserProfileDocument, mDatabase } from '../../firebase/firebase.util';
+import { auth, googleProvider, createUserProfileDocument, getCurrentUser } from '../../firebase/firebase.util';
 import {signInSuccess, signInFailure} from '../user/user.actions';
 
 function* getSnapshotFromUserAuth(userAuth) {
@@ -20,8 +20,6 @@ function* signInWithGoogle() {
         const userRef = yield auth.signInWithPopup(googleProvider);
         const {user} = userRef;
         yield getSnapshotFromUserAuth(user)
-    
-       
        
     } catch (err) {
         yield put(signInFailure(err))
@@ -44,6 +42,16 @@ function* signInWithEmail({payload: {email, password}}) {
     }
 }
 
+function* isUserAuthenticated() {
+    try{
+        //auth obj is the same as userRef so we can use getSnapshot method
+        const userAuth = yield getCurrentUser();
+        if(!userAuth) return;
+        yield getSnapshotFromUserAuth(userAuth);
+    }catch(err) {
+        yield put(signInFailure(err))
+    }
+}
 
 export function* onGoogleSignInStart() {
     yield takeLatest(UserActionTypes.GOOGLE_SIGNIN_START, signInWithGoogle)
@@ -53,9 +61,16 @@ export function* onEmailSignInStart() {
     yield takeLatest(UserActionTypes.EMAIL_SIGNIN_START, signInWithEmail)
 }
 
+export function* onCheckUserSession() {
+    //sagas are listening for the action, here for checkUserSession, isUserAuthenticated performs the actual check
+    yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated)
+}
+
+
 export function* userSagas () {
     yield all([
         call(onGoogleSignInStart),
-        call(onEmailSignInStart)
+        call(onEmailSignInStart),
+        call(onCheckUserSession)
     ])
 }
