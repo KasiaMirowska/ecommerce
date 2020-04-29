@@ -3,8 +3,15 @@ import './Register.styles.scss';
 import FormInput from '../../components/FormInput/FormInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import {auth, createUserProfileDocument} from '../../firebase/firebase.util';
+import { connect } from 'react-redux';
+import {signUpStart} from '../../redux/user/user.actions';
 
-export default class Register extends React.Component {
+
+const mapDispatchToProps = dispatch => ({
+    registerNewUser: (email, password, displayName) => dispatch(signUpStart({email, password, displayName})),
+})
+
+class Register extends React.Component {
     constructor() {
         super()
         this.state = {
@@ -24,21 +31,24 @@ export default class Register extends React.Component {
             return;
         }
 
-        try{
+        this.props.registerNewUser(email, password, displayName)
+       
+       
+        // try{
             
-            const {user} = await auth.createUserWithEmailAndPassword(email, password)
-            //after creating a new user we want to save the authCredentials in here to stay singed in so we call the following 
-            await createUserProfileDocument(user, {displayName})
-            //once process is finished we reset the form
-            this.setState({
-                displayName: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-            })
-        }catch(err) {
-            console.log(err)
-        };
+        //     const {user} = await auth.createUserWithEmailAndPassword(email, password)
+        //     //after creating a new user we want to save the authCredentials in here to stay singed in so we call the following 
+        //     await createUserProfileDocument(user, {displayName})
+        //     //once process is finished we reset the form
+        //     this.setState({
+        //         displayName: '',
+        //         email: '',
+        //         password: '',
+        //         confirmPassword: '',
+        //     })
+        // }catch(err) {
+        //     console.log(err)
+        // };
     }
 
     handleChange =(e)=> {
@@ -54,7 +64,7 @@ export default class Register extends React.Component {
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
-                <span>Sign up with your emial and password</span>
+                <span>Sign up with your email and password</span>
 
                 <form onSubmit={this.handleSubmit}>
                     <FormInput 
@@ -96,3 +106,5 @@ export default class Register extends React.Component {
         )
     }
 }
+
+export default connect(null, mapDispatchToProps)(Register)
