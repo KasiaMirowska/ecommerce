@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Login.styles.scss';
 import FormInput from '../../components/FormInput/FormInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -15,54 +15,44 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-class Login extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            email: '',
-            password: '',
-        }
-    }
+const Login = ({emailSignInStart, googleSignInStart}) => {
+    const [userInfo, setUserInfo] = useState({email: '', password: ''})
 
-    handleSubmit = async(e) => {
+    const {email, password} = userInfo;
+
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        const {email, password} =this.state;
-        const {emailSignInStart} =this.props;
-        emailSignInStart(email, password);
-        //this.props.onLoginSuccess()
-       
+        emailSignInStart(email, password);   
     }
 
-    handleChange = (e) => {
+    const handleChange = (e) => {
         e.preventDefault();
         const { value, name } = e.target;
 
-        this.setState({
+        setUserInfo({
+            ...userInfo,
             [name]: value,
         })
     }
 
-
-    render() {
         return (
             <div className='sign-in'>
                 <h2 className='title'>I already have an account</h2>
                 <span>Sign in with your email and password</span>
 
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={handleSubmit}>
                    
-                    <FormInput name='email' value={this.state.email} onChange={this.handleChange} label='Email' required />
+                    <FormInput name='email' value={email} onChange={handleChange} label='Email' required />
 
-                    <FormInput name='password' value={this.state.password} onChange={this.handleChange} label='Password' required />
+                    <FormInput name='password' value={password} onChange={handleChange} label='Password' required />
                     
                     <div className='buttons'>
                     <CustomButton type='submit'  required >LOG IN</CustomButton>
-                    <CustomButton type='button' onClick={this.props.googleSignInStart} isGoogleSignedIn >LOG IN WITH GOOGLE</CustomButton>
+                    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignedIn >LOG IN WITH GOOGLE</CustomButton>
                     </div>
                 </form>
             </div>
         )
     }
-} 
 
 export default connect(null, mapDispatchToProps)(Login);

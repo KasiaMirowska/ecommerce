@@ -63,6 +63,6 @@ export const signUpSuccess = ({user, additionalData}) => ({
 })
 
 export const signUpFailure = (error) => ({
-    type: UserActionTypes.SIGN_UP_FAILURE,
+    type: UserActionTypes.SIGN_UP_FAILURE ,
     payload: error
 })
