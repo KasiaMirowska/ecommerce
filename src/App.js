@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import HomePage from './pages/homepage/HomePage';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -10,19 +10,11 @@ import CheckOut from './pages/checkOut/CheckOut';
 import {selectCurrentUser} from './redux/user/user.selectors';
 import {checkUserSession} from './redux/user/user.actions';
 
-class App extends React.Component {
+const App = ({checkUserSession, currentUser}) => {
+  useEffect(() => {
+    checkUserSession()
+  }, [checkUserSession]) //need to pass second argument- array in order to make effect invoke only once when mounting rather then every time state changes and rerenders.
 
-  unsubscribeFromAuth = null;
-
-  componentDidMount = () => {
-    this.props.checkUserSession();
-  }
-
-  componentWillUnmount = () => {
-    this.unsubscribeFromAuth(); //making sure we sign off/expire the access
-  }
-
-  render() {
     return (
       <div>
         <Header />
@@ -31,14 +23,13 @@ class App extends React.Component {
 
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
+          <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
           <Route exact path='/checkout' component={CheckOut} />
         </Switch>
       </div>
     );
   }
 
-}
 //bringing user reducer from redux
 // const mapStateToProps = ({ user }) => {
 //   return ({

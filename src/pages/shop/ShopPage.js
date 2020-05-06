@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CollectionsOverviewContainer from '../../components/CollectionsOverview/CollectionsOverview-Container';
-import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStart, fetchCollectionsFailure } from '../../redux/shop/shop.actions';
 import CollectionContainer from '../CollectionPage/Collection-Container';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -21,24 +21,20 @@ const mapDispatchToProps = dispatch => ({
     fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 })
 
-class ShopPage extends React.Component {
-    unsubscribeFromSnapshot = null;
+const ShopPage = ({fetchCollectionsStart, match}) => {
+   useEffect(() => {
+       fetchCollectionsStart();
+   }, [fetchCollectionsStart])
 
-    componentDidMount = () => {
-        this.props.fetchCollectionsStart()
-    }
-
-    render() {
         return (
             <div className='shop-page'>
                 {/* <Route exact path={`${this.props.match.path}`} render={(props) => (<CollectionsOverviewWithSpinner isLoading={!this.props.isCollectionFetching} {...props} />)} /> */}
-                <Route exact path={`${this.props.match.path}`} component={CollectionsOverviewContainer} />
+                <Route exact path={`${match.path}`} component={CollectionsOverviewContainer} />
                 {/* <Route path={`${this.props.match.path}/:collectionId`} render={(props) => (<CollectionPageWithSpinner isLoading={!this.props.isCollectionsLoaded} {...props} />)} /> */}
-                <Route path={`${this.props.match.path}/:collectionId`} component={CollectionContainer} />
+                <Route path={`${match.path}/:collectionId`} component={CollectionContainer} />
             </div>
         )
     }
 
-}
 
 export default connect(null, mapDispatchToProps)(ShopPage);

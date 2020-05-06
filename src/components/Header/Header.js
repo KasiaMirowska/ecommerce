@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import {createStructuredSelector} from 'reselect';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
-import { auth } from '../../firebase/firebase.util';
 import CartIcon from '../CartIcon/CartIcon';
 import Cart from '../CartDropdown/Cart';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
