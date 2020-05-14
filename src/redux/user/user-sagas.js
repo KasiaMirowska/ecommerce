@@ -46,7 +46,12 @@ function* isUserAuthenticated() {
     try{
         //auth obj is the same as userRef so we can use getSnapshot method
         const userAuth = yield getCurrentUser();
-        if(!userAuth) return;
+        console.log(userAuth, 'USER???????????????')
+        if(!userAuth) {
+            console.log('we HAVE NO USER!!!!!!!')
+            // dis usr not valid
+            return;
+        }
         yield getSnapshotFromUserAuth(userAuth);
     }catch(err) {
         yield put(signInFailure(err))

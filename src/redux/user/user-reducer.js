@@ -29,7 +29,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 currentUser: null,
                 error: null,
             }
-
         default:
             return state;
     }

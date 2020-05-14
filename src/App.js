@@ -14,7 +14,7 @@ const App = ({checkUserSession, currentUser}) => {
   useEffect(() => {
     checkUserSession()
   }, [checkUserSession]) //need to pass second argument- array in order to make effect invoke only once when mounting rather then every time state changes and rerenders.
-
+  
     return (
       <div>
         <Header />

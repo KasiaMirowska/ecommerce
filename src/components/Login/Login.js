@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './Login.styles.scss';
 import FormInput from '../../components/FormInput/FormInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import {auth } from '../../firebase/firebase.util';
 import {googleSignInStart, emailSignInStart} from '../../redux/user/user.actions';
 import {connect} from 'react-redux';
 
@@ -15,14 +14,14 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-const Login = ({emailSignInStart, googleSignInStart}) => {
+const Login = ({emailSignInStart, googleSignInStart, onLoginSuccess}) => {
     const [userInfo, setUserInfo] = useState({email: '', password: ''})
 
     const {email, password} = userInfo;
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        emailSignInStart(email, password);   
+        emailSignInStart(email, password); 
     }
 
     const handleChange = (e) => {
