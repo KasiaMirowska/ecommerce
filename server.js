@@ -9,7 +9,7 @@ if(process.env.NODE_ENV !== 'production') {
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);//imidietly after requireing stripe we envoke a function and passing our key, we receive back an object 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
