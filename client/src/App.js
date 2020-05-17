@@ -15,20 +15,20 @@ const App = ({checkUserSession, currentUser}) => {
     checkUserSession()
   }, [checkUserSession]) //need to pass second argument- array in order to make effect invoke only once when mounting rather then every time state changes and rerenders.
   
-    return (
-      <div>
-        <Header />
-        
-        <Switch>
+  return (
+    <div>
+      <Header />
+      
+      <Switch>
 
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
-          <Route exact path='/checkout' component={CheckOut} />
-        </Switch>
-      </div>
-    );
-  }
+        <Route exact path='/' component={HomePage} />
+        <Route path='/shop' component={ShopPage} />
+        <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
+        <Route exact path='/checkout' component={CheckOut} />
+      </Switch>
+    </div>
+  );
+}
 
 //bringing user reducer from redux
 // const mapStateToProps = ({ user }) => {
