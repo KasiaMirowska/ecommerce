@@ -1,5 +1,5 @@
 import CartActionTypes from './cart.types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 import {addMultiSameToCart, removeItem} from './cart.utils';
 

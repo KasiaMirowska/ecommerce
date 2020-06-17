@@ -1,13 +1,13 @@
 import React from 'react';
 import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink, OptionDiv} from './Header.styles';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import {createStructuredSelector} from 'reselect';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import CartIcon from '../CartIcon/CartIcon';
 import Cart from '../CartDropdown/Cart';
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
+// import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import {selectCurrentUser} from '../../redux/user/user.selectors';
 import {selectCartHidden} from '../../redux/cart/cart.selectors';
 import {signOutStart} from '../../redux/user/user.actions';

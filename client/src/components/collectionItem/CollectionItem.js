@@ -18,7 +18,7 @@ const mapStateToProps = (state) => ({
 
 const CollectionItem = (props) => {
     
-    const {id, name, price, imageUrl} = props.item;
+    const {name, price, imageUrl} = props.item;
 
     return (
         <div className='collection-item' >

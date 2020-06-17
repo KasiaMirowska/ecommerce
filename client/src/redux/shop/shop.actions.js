@@ -1,5 +1,5 @@
 import shopActionTypes from './shop.types';
-import {firestore, convertCollectionSnapshotToMap} from '../../firebase/firebase.util'
+// import {firestore, convertCollectionSnapshotToMap} from '../../firebase/firebase.util'
 
 //thunk is action creator/function that returns dispatch. Istead of a funcion that returns action object we will return another function that returns dispatch
 

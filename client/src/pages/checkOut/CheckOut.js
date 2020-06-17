@@ -4,7 +4,11 @@ import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectCartItems, selectCartHidden, selectCartTotal } from '../../redux/cart/cart.selectors';
+import { 
+    selectCartItems, 
+    // selectCartHidden, 
+    selectCartTotal 
+} from '../../redux/cart/cart.selectors';
 import StripeCheckoutButton from '../../components/StripeButton/StripeButton';
 
 const mapStateToProps = createStructuredSelector({

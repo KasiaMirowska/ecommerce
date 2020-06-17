@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Register.styles.scss';
 import FormInput from '../../components/FormInput/FormInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.util';
+// import { auth, createUserProfileDocument } from '../../firebase/firebase.util';
 import { connect } from 'react-redux';
 import { signUpStart } from '../../redux/user/user.actions';
 

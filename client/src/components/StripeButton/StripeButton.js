@@ -10,7 +10,7 @@ const StripeCheckoutButton = ({price}) => {
     const publishableKey = 'pk_test_TMArZFc4pE55DY2WlTMYNqZl00b9DDz4ua';
 
     const onToken = token => {
-        const url = 'http://localhost:8000/payment';
+        // const url = 'http://localhost:8000/payment';
         console.log(token); //carries info about the payment to stripe
         axios({
             url: 'http://localhost:8000/payment',

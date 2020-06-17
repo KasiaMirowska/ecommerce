@@ -1,6 +1,9 @@
 import React, {useEffect} from 'react';
 import CollectionsOverviewContainer from '../../components/CollectionsOverview/CollectionsOverview-Container';
-import { fetchCollectionsStart, fetchCollectionsFailure } from '../../redux/shop/shop.actions';
+import { 
+    fetchCollectionsStart, 
+    // fetchCollectionsFailure 
+} from '../../redux/shop/shop.actions';
 import CollectionContainer from '../CollectionPage/Collection-Container';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
