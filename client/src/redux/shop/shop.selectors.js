@@ -18,8 +18,14 @@ export const selectCollectionsForPreview = createSelector(
 export const selectCollection = collectionUrlParam => {
     return createSelector(
         [selectShopCollections],
-        collections => collections? collections[collectionUrlParam] : null//after data normalization we have an object with titled smaller objects holding the collection items
-    )
+        collections => {
+            if (collections) {
+                console.log(collections[collectionUrlParam], 'URL PARAM OF COLLECTION')
+                return collections[collectionUrlParam]
+            } else {
+                return null;
+            } //after data normalization we have an object with titled smaller objects holding the collection items
+        })
 }
 
 export const selectIsCollectionFetching = createSelector(
