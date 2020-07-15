@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import './CollectionPage.styles.scss';
+import {CollectionPageStyles, Title, ItemsContainer} from './CollectionPage.styles';
+//import './CollectionPage.styles.scss';
 import CollectionItem from '../../components/collectionItem/CollectionItem';
 import { selectCollection } from '../../redux/shop/shop.selectors';
 
@@ -16,14 +16,14 @@ const CollectionPage = (props) => {
         )
     })
     return ( 
-        <div className='collection-page'>
-            <div className='title'>
+        <CollectionPageStyles>
+            <Title>
                 <h2>{`${props.collection.title}`}</h2>
-            </div> 
-            <div className='items'>
+            </Title> 
+            <ItemsContainer>
                 {content}
-            </div>
-        </div>
+            </ItemsContainer>
+        </CollectionPageStyles>
     )
 }
 

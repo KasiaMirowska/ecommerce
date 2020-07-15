@@ -6,4 +6,12 @@
     .title {
         margin: 0 0 10px;
     }
+
+    @media (max-width: 800px) {
+       
+        .title {
+            margin-top: 20px;
+            
+        }
+    }
 }

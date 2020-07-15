@@ -1,5 +1,6 @@
 import React from 'react';
-import './Directory.styles.scss';
+//import './Directory.styles.scss';
+import {DirectorySectionsContainer} from './Directory.styles';
 import MenuItem from '../menu-item/MenuItem';
 import {selectDirectorySections} from '../../redux/directory/directory.selectors'
 import { connect } from 'react-redux';
@@ -18,9 +19,9 @@ const Directory = (props) => {
     ));
 
     return (
-        <div className='directory-menu'>
+        <DirectorySectionsContainer>
             {sections}
-        </div>
+        </DirectorySectionsContainer>
     );
 }
 

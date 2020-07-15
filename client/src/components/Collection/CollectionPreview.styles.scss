@@ -4,7 +4,7 @@
     margin-bottom: 30px;
   
     .title {
-      font-size: 28px;
+      font-size: 38px;
       margin-bottom: 25px;
     }
   
@@ -12,5 +12,23 @@
       display: flex;
       justify-content: space-between;
     }
+   }
+   
+  
+  @media screen and (max-width: 800px) {
+    .collection {
+      align-items: center;
+    
+      .title {
+        font-size: 38px;
+        margin-bottom: 25px;
+      }
+    
+      .preview {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+      }
+     }
   }
   

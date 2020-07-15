@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import './App.css';
+import {GlobalStyle} from './global.styles';
 import HomePage from './pages/homepage/HomePage';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -17,6 +17,7 @@ const App = ({checkUserSession, currentUser}) => {
   
   return (
     <div>
+      <GlobalStyle />
       <Header />
       
       <Switch>
