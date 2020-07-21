@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import Header from './components/Header/Header';
 import Spinner from './components/Spinner/Spinner';
+import ErrorBoundary from './components/error-boundary/error-boundary';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
@@ -26,12 +27,14 @@ const App = ({ checkUserSession, currentUser }) => {
       <Header />
 
       <Switch>
-        <Suspense fallback={<Spinner />} >
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
-          <Route exact path='/checkout' component={CheckOut} />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />} >
+            <Route exact path='/' component={HomePage} />
+            <Route path='/shop' component={ShopPage} />
+            <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) : (<LoginRegister />)} />
+            <Route exact path='/checkout' component={CheckOut} />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
     </div>
   );

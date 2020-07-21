@@ -33,7 +33,6 @@ const Login = ({emailSignInStart, googleSignInStart, onLoginSuccess}) => {
             [name]: value,
         })
     }
-
         return (
             <div className='sign-in'>
                 <h2 className='title'>I already have an account</h2>
