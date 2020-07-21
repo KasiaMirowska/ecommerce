@@ -1,11 +1,11 @@
 const express = require('express');
-const cors= require('cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const compression = require('compression');
 const enforce = require('express-sslify');
 
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
@@ -13,14 +13,14 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);//imidietly afte
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.use(compression());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(enforce.HTTPS({ trustProtoHeader: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
+    app.use(compression());
+    app.use(enforce.HTTPS({ trustProtoHeader: true }));
     app.use(express.static(path.join(__dirname, 'client/build')));
 
     app.get('*', (req, res) => {
@@ -29,7 +29,7 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 app.listen(port, error => {
-    if(error) throw error;
+    if (error) throw error;
     console.log('running on port 8000')
 })
 
@@ -46,10 +46,10 @@ app.post('/payment', (req, res) => {
     };
     //this is a proxy server between client and stripe processing in order to process paymanets and safely log in with token
     stripe.charges.create(body, (stripeErr, stripeRes) => {
-        if(stripeErr) {
-            res.status(500).send({error: stripeErr})
-        }else {
-            res.status(200).send({success: stripeRes})
+        if (stripeErr) {
+            res.status(500).send({ error: stripeErr })
+        } else {
+            res.status(200).send({ success: stripeRes })
         }
     })
 })
