@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => ({
     removeItem: item => dispatch(removeItem(item))
 });
 
-const CheckoutItem = (props) => {
+export const CheckoutItem = (props) => {
     
     const { imageUrl, name, quantity, price, clearItemFromCart, addItem, removeItem } = props;
 
@@ -22,9 +22,9 @@ const CheckoutItem = (props) => {
             <span className='name'>{name}</span>
 
             <span className='quantity'>
-                <div className='arrow' onClick={()=> removeItem(props)}>&#10094;</div>
+                <div className='arrow' id='decrease' onClick={()=> removeItem(props)}>&#10094;</div>
                 <span className='value'>{quantity}</span>
-                <div className='arrow'  onClick={()=> addItem(props)}>&#10095;
+                <div className='arrow' id='increase' onClick={()=> addItem(props)}>&#10095;
                 </div>
             </span>
             <span className='price'>{price}</span>
