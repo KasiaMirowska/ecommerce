@@ -6,7 +6,7 @@ import {selectDirectorySections} from '../../redux/directory/directory.selectors
 import { connect } from 'react-redux';
 
 
-const Directory = (props) => {
+export const Directory = (props) => {
     const sections = props.sections.map(section => (
         <MenuItem
             key={section.id}

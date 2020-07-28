@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
     collections: selectCollectionsForPreview(state),
 })
 
-const CollectionsOverview = (props) => {
+export const CollectionsOverview = (props) => {
     const list = props.collections.map(collection => (
         <CollectionPreview
             key={collection.id}

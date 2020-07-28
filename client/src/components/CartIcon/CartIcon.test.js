@@ -4,9 +4,9 @@ import { CartIcon } from '../../components/CartIcon/CartIcon';
 
 
 describe('CartIcon component', () => {
-
     let wrapper;
     let mockToggleCartHidden;
+    
     beforeEach(() => {
         mockToggleCartHidden = jest.fn();
 
@@ -17,6 +17,7 @@ describe('CartIcon component', () => {
 
         wrapper = shallow(<CartIcon {...props} />);
     });
+    
     it('renders as expected', () => {
         expect(wrapper).toMatchSnapshot();
     })

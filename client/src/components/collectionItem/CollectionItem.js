@@ -16,7 +16,7 @@ const mapStateToProps = (state) => ({
     currentUser: selectCurrentUser(state),
 });
 
-const CollectionItem = (props) => {
+export const CollectionItem = (props) => {
     
     const {name, price, imageUrl} = props.item;
 
