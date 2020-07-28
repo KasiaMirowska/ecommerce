@@ -10,7 +10,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const CheckoutItem = (props) => {
-    console.log(props)
+    
     const { imageUrl, name, quantity, price, clearItemFromCart, addItem, removeItem } = props;
 
     //as props we need to pass cartItems but also the item itself in order to be able to add or remove another items to cart

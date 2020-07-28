@@ -1,13 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {CollectionPageStyles, Title, ItemsContainer} from './CollectionPage.styles';
 //import './CollectionPage.styles.scss';
 import CollectionItem from '../../components/collectionItem/CollectionItem';
-import { selectCollection } from '../../redux/shop/shop.selectors';
 
-const mapStateToProps = (state, ownProps) => ({
-    collection: selectCollection(ownProps.match.params.collectionId)(state),
-})
 
 const CollectionPage = (props) => {
     const content = props.collection.items.map(item => {
@@ -27,4 +22,4 @@ const CollectionPage = (props) => {
     )
 }
 
-export default connect(mapStateToProps)(CollectionPage);
+export default CollectionPage;

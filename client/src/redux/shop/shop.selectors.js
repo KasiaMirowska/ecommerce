@@ -20,7 +20,6 @@ export const selectCollection = collectionUrlParam => {
         [selectShopCollections],
         collections => {
             if (collections) {
-                console.log(collections[collectionUrlParam], 'URL PARAM OF COLLECTION')
                 return collections[collectionUrlParam]
             } else {
                 return null;

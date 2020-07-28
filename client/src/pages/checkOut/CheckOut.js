@@ -16,7 +16,7 @@ const mapStateToProps = createStructuredSelector({
     total: selectCartTotal,
 })
 
-const CheckOut = (props) => {
+export const CheckOut = (props) => {
     const items = props.cartItems.map(item => (
         <CheckoutItem key={item.id} {...item} />
     ));

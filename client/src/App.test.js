@@ -1,9 +1,19 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { shallow } from 'enzyme';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+
+describe('App', () => {
+  const props = {
+    checkUserSession: jest.fn(),
+    currentUser: 'user1'
+  }
+
+  const appWrapper = shallow(<App  {...props} />);
+
+  it('renders as expected2', () => {
+    expect(appWrapper).toMatchSnapshot();
+  })
+
+})
+
